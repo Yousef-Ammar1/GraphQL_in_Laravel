@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PetitionCollection;
+use App\Http\Resources\PetitionResource;
 use App\Models\Petition;
 use Illuminate\Http\Request;
 
@@ -12,7 +14,14 @@ class PetitionController extends Controller
      */
     public function index()
     {
-        //
+        //You need to use the
+        //return new PetitiCollection(Petition::all());
+        //to be able to show the data below
+        //If you choose to use the
+        //Petition::colllection(Petition::all()); It won't show the below data
+
+        return new PetitionCollection(Petition::all());
+
     }
 
     /**
@@ -20,7 +29,11 @@ class PetitionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $petition = Petition::create($request->only([
+            'title', 'description', 'category', 'author', 'signees'
+        ]));
+
+        return new PetitionResource($petition);
     }
 
     /**
