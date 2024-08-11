@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('petitions', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->text('category');
-            $table->string('author');
-            $table->integer('signees');
-
-            $table->timestamps();
+        //composer require doctrine/dbal
+        //php artisan make:migratiion change_category_type_in_petitions
+        Schema::table('petitions', function (Blueprint $table) {
+            $table->string('category')->change();
         });
     }
 
@@ -28,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('petitions');
+        Schema::table('petitions', function (Blueprint $table) {
+            //
+        });
     }
 };
